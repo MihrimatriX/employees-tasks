@@ -1,36 +1,35 @@
+import { getDocs, collection, getDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import './App.css';
-import data from "./data/dummy.json"
-import Table from './pages/test-table';
+import CoreTable from './components/CoreTable';
+import { db } from './config/firebase';
 
-interface AppState {
-  veri?: {}
-}
-
-class App extends React.Component<any, AppState> {
+export default class App extends React.Component {
   constructor(props: any) {
     super(props);
-    this.dataGetir();
+    this.setState({
+      ...this.state
+    });
   }
 
-
-  dataGetir = () => {
-    let veri = data.hafta1.employees;
-    veri.map((e) => {
-      this.setState({
-        veri: e.workDays
-      });
-    });
-    console.log(veri);
+  async componentDidMount() {
+    const docRef = doc(db, "users", "user");
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      //this.setState({isim: docSnap.data().name});
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
   }
 
   render() {
-    return <>
+    return (<>
       <div className="App">
-        <Table />
+        <CoreTable nameTitle={"this.state.isim!"} />
       </div>
-    </>;
+    </>);
   }
 }
-
-export default App;
