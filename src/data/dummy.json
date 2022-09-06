@@ -1,0 +1,151 @@
+{
+  "hafta1": {
+    "employees": [
+      {
+        "kullaniciAd": "Ahmet",
+        "workDays": [
+          {
+            "dayDate": "10.10.1000",
+            "monday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "tuesday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "wednesday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "thursday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "friday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "saturday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "dayDate": "10.10.1000",
+            "sunday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          }
+        ],
+        "weekTotal": 56
+      },
+      {
+        "kullaniciAd": "Baris",
+        "workDays": [
+          {
+            "monday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "tuesday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "wednesday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "thursday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "friday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "saturday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          },
+          {
+            "sunday": {
+              "workHours": {
+                "start": "00.00",
+                "end": "02.00",
+                "totalHour": 8
+              }
+            }
+          }
+        ],
+        "weekTotal": 42
+      }
+    ]
+  }
+}
