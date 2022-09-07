@@ -6,8 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { getDocs, collection } from 'firebase/firestore';
+import { TimePicker } from "antd";
+
 import { db } from '../config/firebase';
+
+import dummyData from "../data/dummy.json";
+import { doc, getDoc } from 'firebase/firestore';
+import moment from 'moment';
 
 function createData(
     name: string,
@@ -20,7 +25,7 @@ function createData(
     return { name, calories, fat, carbs, protein, date };
 }
 
-const rows = [
+const data = [
     createData('Frozen yoghurt', 159, 6.0, 24, 4.0, new Date().getDate()),
     createData('Ice cream sandwich', 237, 9.0, 37, 4.3, new Date().getDate()),
     createData('Eclair', 262, 16.0, 24, 6.0, new Date().getDate()),
@@ -28,12 +33,13 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9, new Date().getDate()),
 ];
 
-export interface CoreTableProps {
-    nameTitle: string;
+interface CoreTableProps {
+    docId: string;
 }
 
-export interface CoreTableState {
-    nameTitle: string;
+interface CoreTableState {
+    nameTitle?: string;
+    load: boolean;
 }
 
 export default class CoreTable extends React.Component<CoreTableProps, CoreTableState> {
@@ -41,53 +47,60 @@ export default class CoreTable extends React.Component<CoreTableProps, CoreTable
         super(props);
     }
 
-    async componentDidMount() {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        querySnapshot.forEach((doc: any) => {
-            console.log("doc: ", doc.data().name);
-            this.setState({
-                nameTitle: doc.data().name
-            });
+    componentDidMount = () => {
+        console.log("Tamamen Render..");
+        const userDoc = doc(db, 'users', this.props.docId);
+        getDoc(userDoc).then((user: any) => {
+            // user.data().name;
+            // user.data().passwd;
+            console.log(user.data().name, " - ", user.data().passwd);
         });
     }
 
     render(): React.ReactNode {
         return (
             <>
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow style={{backgroundColor: "gray"}}>
-                                <TableCell>{this.state.nameTitle}</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>GUN</TableCell>
-                                <TableCell>Toplam</TableCell>
-                                <TableCell>Duzenle</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map((row) => (
-                                <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component="th" scope="row">{row.name}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">{row.date}</TableCell>
-                                    <TableCell align="right">Toplam</TableCell>
-                                    <TableCell align="right">Toplam</TableCell>
+                <div style={{}}>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow style={{ backgroundColor: "gray" }}>
+                                    <TableCell align="center"> KISI</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> GUN</TableCell>
+                                    <TableCell align="center"> TOTAL</TableCell>
+                                    <TableCell align="center"> EDIT</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                                {dummyData.hafta1.employees.map((data) => (
+                                    <TableRow key={data.kullaniciAd} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                        <TableCell component="th" scope="row">{data.kullaniciAd}</TableCell>
+                                        {data.workDays.forEach((val: any) => {
+                                            val.map((obj: any) => {
+                                                <TableCell align="center">
+                                                <TimePicker.RangePicker
+                                                    value={[moment(obj.monday.workHours.start, "HH.mm"), moment(data.workDays[0].monday?.workHours.end, "HH:mm")]}
+                                                    size='small'
+                                                    showSecond={false}
+                                                    minuteStep={15}
+                                                />
+                                            </TableCell>
+                                            })
+                                        })}
+                                        <TableCell align="right">{data.weekTotal}</TableCell>
+                                        <TableCell align="right">ACTION</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
             </>
         );
     }
