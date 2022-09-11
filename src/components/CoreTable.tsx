@@ -72,7 +72,7 @@ export default class CoreTable extends React.Component<CoreTableProps, CoreTable
                 title: 'Monday',
                 dataIndex: 'Monday',
                 key: 'Monday',
-                render: () => (
+                render: (data: any) => (
                     <>
                         <TimePicker.RangePicker
                             showSecond={false}
@@ -82,6 +82,7 @@ export default class CoreTable extends React.Component<CoreTableProps, CoreTable
                             suffixIcon={false}
                             separator={'-'}
                             onChange={this.handleTimePicker}
+                            value={data}
                         />
                     </>
                 )
@@ -116,45 +117,8 @@ export default class CoreTable extends React.Component<CoreTableProps, CoreTable
                     "end": "02.00",
                     "totalHour": 8
                 }
-            }, {
-                "key": "monday",
-                "day": "monday",
-                "dayDate": "10.10.1000",
-                "workHours": {
-                    "start": "00.00",
-                    "end": "02.00",
-                    "totalHour": 8
-                }
-            }, {
-                "key": "monday",
-                "day": "monday",
-                "dayDate": "10.10.1000",
-                "workHours": {
-                    "start": "00.00",
-                    "end": "02.00",
-                    "totalHour": 8
-                }
-            }, {
-                "key": "monday",
-                "day": "monday",
-                "dayDate": "10.10.1000",
-                "workHours": {
-                    "start": "00.00",
-                    "end": "02.00",
-                    "totalHour": 8
-                }
-            }, {
-                "key": "monday",
-                "day": "monday",
-                "dayDate": "10.10.1000",
-                "workHours": {
-                    "start": "00.00",
-                    "end": "02.00",
-                    "totalHour": 8
-                }
             }
         ];
-
 
         this.setState({
             columns: columns,
@@ -162,14 +126,12 @@ export default class CoreTable extends React.Component<CoreTableProps, CoreTable
         })
     }
 
-
     handleTimePicker = (values: any) => {
         console.log("E Budur: ", values);
         this.setState({
             mondayHours: values
         });
     }
-
 
     render() {
         return (
